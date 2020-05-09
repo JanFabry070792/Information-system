@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="logFirmaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'logFirma.dbo.Reklamacia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Reklamacia">
+          <Key>
+            <PropertyRef Name="ID_Reklamacia" />
+            <PropertyRef Name="Datum_Podania" />
+            <PropertyRef Name="Stav" />
+            <PropertyRef Name="Predmet" />
+          </Key>
+          <Property Name="ID_Reklamacia" Type="int" Nullable="false" />
+          <Property Name="Datum_Podania" Type="date" Nullable="false" />
+          <Property Name="Stav" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Predmet" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Uzivatel_Username" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Uzivatel">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Upassword" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Typ_Uctu" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="logFirmaModelStoreContainer">
+          <EntitySet Name="Uzivatel" EntityType="Self.Uzivatel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reklamacia" EntityType="Self.Reklamacia" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Reklamacia].[ID_Reklamacia] AS [ID_Reklamacia], 
+    [Reklamacia].[Datum_Podania] AS [Datum_Podania], 
+    [Reklamacia].[Stav] AS [Stav], 
+    [Reklamacia].[Predmet] AS [Predmet], 
+    [Reklamacia].[Uzivatel_Username] AS [Uzivatel_Username]
+    FROM [dbo].[Reklamacia] AS [Reklamacia]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="logFirmaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Uzivatel">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Upassword" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Typ_Uctu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reklamacia">
+          <Key>
+            <PropertyRef Name="ID_Reklamacia" />
+            <PropertyRef Name="Datum_Podania" />
+            <PropertyRef Name="Stav" />
+            <PropertyRef Name="Predmet" />
+          </Key>
+          <Property Name="ID_Reklamacia" Type="Int32" Nullable="false" />
+          <Property Name="Datum_Podania" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Stav" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Predmet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Uzivatel_Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="logFirmaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Uzivatel" EntityType="Self.Uzivatel" />
+          <EntitySet Name="Reklamacia" EntityType="Self.Reklamacia" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="logFirmaModelStoreContainer" CdmEntityContainer="logFirmaEntities">
+          <EntitySetMapping Name="Uzivatel">
+            <EntityTypeMapping TypeName="logFirmaModel.Uzivatel">
+              <MappingFragment StoreEntitySet="Uzivatel">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Upassword" ColumnName="Upassword" />
+                <ScalarProperty Name="Typ_Uctu" ColumnName="Typ_Uctu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reklamacia">
+            <EntityTypeMapping TypeName="logFirmaModel.Reklamacia">
+              <MappingFragment StoreEntitySet="Reklamacia">
+                <ScalarProperty Name="ID_Reklamacia" ColumnName="ID_Reklamacia" />
+                <ScalarProperty Name="Datum_Podania" ColumnName="Datum_Podania" />
+                <ScalarProperty Name="Stav" ColumnName="Stav" />
+                <ScalarProperty Name="Predmet" ColumnName="Predmet" />
+                <ScalarProperty Name="Uzivatel_Username" ColumnName="Uzivatel_Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
